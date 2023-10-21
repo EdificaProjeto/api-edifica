@@ -31,8 +31,14 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/registrar").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/gestao").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/gestao").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/materiais").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/materiais/abc").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/materiais").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

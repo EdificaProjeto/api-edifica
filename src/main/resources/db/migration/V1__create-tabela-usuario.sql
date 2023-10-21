@@ -10,7 +10,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE gestao (
 
-    id TEXT PRIMARY KEY NOT NULL,
+    id SERIAL PRIMARY KEY NOT NULL,
     nome TEXT NOT NULL,
     status TEXT NOT NULL,
     tipo TEXT NOT NULL,
@@ -20,7 +20,17 @@ CREATE TABLE gestao (
     FOREIGN KEY (usuario_id) references usuario(id)
     ON DELETE CASCADE
 
+);
 
+CREATE TABLE material (
 
+    id SERIAL PRIMARY KEY NOT NULL,
+    nome TEXT NOT NULL,
+    quantidade INT NOT NULL,
+    valor NUMERIC NOT NULL,
+    gestao_id INTEGER NOT NULL,
 
-)
+    CONSTRAINT fk_gestao_id
+    FOREIGN KEY (gestao_id) references gestao(id)
+
+);

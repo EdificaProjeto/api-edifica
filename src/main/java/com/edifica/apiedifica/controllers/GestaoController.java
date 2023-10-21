@@ -2,6 +2,7 @@ package com.edifica.apiedifica.controllers;
 
 import com.edifica.apiedifica.domain.gestao.Gestao;
 import com.edifica.apiedifica.repositories.GestaoRepository;
+import com.edifica.apiedifica.repositories.UsuarioRepository;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ public class GestaoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Gestao adicionar(@RequestBody @Valid Gestao gestao){
+
         return gestaoRepository.save(gestao);
     }
 

@@ -1,5 +1,6 @@
 package com.edifica.apiedifica.controllers;
 
+import com.edifica.apiedifica.domain.gestao.Gestao;
 import com.edifica.apiedifica.domain.usuario.AutenticacaoDTO;
 import com.edifica.apiedifica.domain.usuario.LoginResponseDTO;
 import com.edifica.apiedifica.domain.usuario.RegistrarDTO;
@@ -14,10 +15,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -53,6 +53,11 @@ public class AutenticacaoController {
 
         return ResponseEntity.ok().build();
 
+    }
+
+    @GetMapping
+    public List<Usuario> getUsuario(){
+        return usuarioRepository.findAll();
     }
 
 

@@ -28,7 +28,7 @@ public class Material {
     @ManyToOne
     private Gestao gestao;
 
-
-
-
+    public void setId(long id) {
+        this.id = id;
+    }
 }
