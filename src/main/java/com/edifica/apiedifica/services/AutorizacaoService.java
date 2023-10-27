@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AutorizacaoService implements UserDetailsService {
 
-
     private final UsuarioRepository usuarioRepository;
 
     @Override

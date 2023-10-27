@@ -1,8 +1,11 @@
 package com.edifica.apiedifica.services;
 
+import com.edifica.apiedifica.domain.gestao.Gestao;
 import com.edifica.apiedifica.domain.material.Material;
 import com.edifica.apiedifica.domain.material.MaterialClassificado;
+import com.edifica.apiedifica.repositories.GestaoRepository;
 import com.edifica.apiedifica.repositories.MaterialRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +15,16 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class MaterialService {
 
-    @Autowired
-    private MaterialRepository materialRepository;
 
-    public List<MaterialClassificado> getMaterialsByABC() {
-        List<Material> materials = materialRepository.findAll();
+    private final MaterialRepository materialRepository;
+    private final GestaoRepository gestaoRepository;
+
+    public List<MaterialClassificado> getMaterialsByABC(Long gestaoId) {
+        Gestao gestao = gestaoRepository.findById(gestaoId).orElseThrow(() -> new RuntimeException("Erro!"));
+        List<Material> materials = gestao.getMateriais();
 
         // Ordenar os materiais pelo valor total (valor) em ordem decrescente
         materials.sort(Comparator.comparing(Material::getValor).reversed());

@@ -21,7 +21,7 @@ public class Gestao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    private String id;
+    private Long id;
     private String nome;
 
     @Enumerated(EnumType.STRING)
@@ -30,15 +30,19 @@ public class Gestao {
     @Enumerated(EnumType.STRING)
     private GestaoTipo tipo;
 
+
     @JsonIgnore
     @OneToMany(
             mappedBy = "gestao", cascade = CascadeType.ALL
     )
     private List<Material> materiais;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
 /*
     public Gestao(String nome, GestaoStatus status, GestaoTipo tipo, List<Material> materiais) {
         this.nome = nome;
@@ -46,7 +50,6 @@ public class Gestao {
         this.tipo = tipo;
         this.materiais = materiais;
     }
-
  */
 
 

@@ -1,6 +1,6 @@
 CREATE TABLE usuario (
 
-    id TEXT PRIMARY KEY NOT NULL,
+    usuario_id TEXT PRIMARY KEY NOT NULL,
     nome TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     senha TEXT NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE gestao (
     usuario_id TEXT NOT NULL,
 
     CONSTRAINT fk_usuario_id
-    FOREIGN KEY (usuario_id) references usuario(id)
+    FOREIGN KEY (usuario_id) references usuario(usuario_id)
     ON DELETE CASCADE
 
 );

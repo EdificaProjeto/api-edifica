@@ -1,10 +1,13 @@
 package com.edifica.apiedifica.controllers;
 
+import com.edifica.apiedifica.domain.gestao.Gestao;
 import com.edifica.apiedifica.domain.material.Material;
 import com.edifica.apiedifica.domain.material.MaterialClassificado;
+import com.edifica.apiedifica.repositories.GestaoRepository;
 import com.edifica.apiedifica.repositories.MaterialRepository;
 import com.edifica.apiedifica.services.MaterialService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,34 +17,34 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/materiais")
+@RequestMapping("/gestao/{gestaoId}/materiais")
+@AllArgsConstructor
 public class MaterialController {
 
     private final MaterialService materialService;
     private final MaterialRepository materialRepository;
+    private final GestaoRepository gestaoRepository;
 
-    public MaterialController(MaterialService materialService, MaterialRepository materialRepository) {
-        this.materialService = materialService;
-        this.materialRepository = materialRepository;
+    @GetMapping
+    public List<Material> listar(@PathVariable Long gestaoId){
+        Gestao gestao = gestaoRepository.findById(gestaoId).orElseThrow(() -> new RuntimeException("Erro!"));
+        return gestao.getMateriais();
     }
 
     @GetMapping("/abc")
-    public Map<String, List<Material>> getMaterialsByABC() {
-        List<MaterialClassificado> materialClassificado = materialService.getMaterialsByABC();
+    public Map<String, List<Material>> getMaterialsByABC(@PathVariable Long gestaoId) {
 
+        List<MaterialClassificado> materialClassificado = materialService.getMaterialsByABC(gestaoId);
 
-        Map<String, List<Material>> materialsGroupedByClassification = materialClassificado.stream()
+        Map<String, List<Material>> materiaisClassificados = materialClassificado.stream()
                 .collect(Collectors.groupingBy(MaterialClassificado::getClassificacao,
                         Collectors.mapping(MaterialClassificado::getMaterial, Collectors.toList())));
 
-        return materialsGroupedByClassification;
+        return materiaisClassificados;
     }
 
-    @GetMapping
-    public List<Material> listar(){
-        return materialRepository.findAll();
-    }
 
+/*
     @GetMapping("/{materialId}")
     public ResponseEntity<Material> buscar(@PathVariable Long materialId){
         return materialRepository.findById(materialId)
@@ -49,11 +52,17 @@ public class MaterialController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+ */
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Material adicionar(@Valid @RequestBody Material material) {
+    public Material adicionar(@PathVariable Long gestaoId,@Valid @RequestBody Material material) {
         //material.setValor(material.getValor().divide(BigDecimal.valueOf(material.getQuantidade())));
-        return materialRepository.save(material);
+        Gestao gestao = gestaoRepository.findById(gestaoId).orElseThrow(() -> new RuntimeException("Erro!"));
+        material.setGestao(gestao);
+        gestao.getMateriais().add(material);
+        gestaoRepository.save(gestao);
+        return material;
     }
 
     @PutMapping("/{materialId}")

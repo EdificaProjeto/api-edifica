@@ -26,6 +26,7 @@ public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
 
+    @Column(name = "usuario_id")
     private String id;
     private String nome;
     private String email;
@@ -39,12 +40,15 @@ public class Usuario implements UserDetails {
         this.papel = papel;
     }
 
+/*
     @JsonIgnore
     @OneToMany(
             mappedBy = "usuario", cascade = CascadeType.ALL
     )
+    @JoinColumn(name="fk_usuario_id", referencedColumnName = "usuario_id")
     private List<Gestao> gestoes = new ArrayList<Gestao>();
 
+ */
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
