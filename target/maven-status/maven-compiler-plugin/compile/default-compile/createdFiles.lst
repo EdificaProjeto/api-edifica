@@ -1,11 +1,11 @@
-com\edifica\apiedifica\infra\security\SecurityConfiguration.class
 com\edifica\apiedifica\domain\material\Material.class
-com\edifica\apiedifica\domain\usuario\LoginResponseDTO.class
 com\edifica\apiedifica\repositories\UsuarioRepository.class
 com\edifica\apiedifica\controllers\AutenticacaoController.class
 com\edifica\apiedifica\repositories\MaterialRepository.class
 com\edifica\apiedifica\repositories\GestaoRepository.class
 com\edifica\apiedifica\domain\gestao\GestaoTipo.class
+com\edifica\apiedifica\infra\security\SecurityConfiguration.class
+com\edifica\apiedifica\domain\usuario\LoginResponseDTO.class
 com\edifica\apiedifica\controllers\GestaoController.class
 com\edifica\apiedifica\infra\security\SecurityFilter.class
 com\edifica\apiedifica\ApiedificaApplication.class
