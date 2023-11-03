@@ -8,6 +8,8 @@ import com.edifica.apiedifica.repositories.UsuarioRepository;
 import com.edifica.apiedifica.services.GestaoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +42,10 @@ public class GestaoController {
  */
 
     @GetMapping
-    public List<GestaoModel> getGestao(){
-        return gestaoRepository.findAll().stream().map(GestaoModel::from).collect(Collectors.toList());
+    public List<GestaoModel> getGestao(@Param("usuarioId") String usuarioId){
+
+        return gestaoRepository.findByUsuarioId(usuarioId).stream().map(GestaoModel::from).collect(Collectors.toList());
+
     }
 
 }

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface GestaoRepository extends JpaRepository<Gestao, Long> {
 
+    List<Gestao> findByUsuarioId(String id);
+
 }
