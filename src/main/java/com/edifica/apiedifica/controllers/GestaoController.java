@@ -48,4 +48,11 @@ public class GestaoController {
 
     }
 
+    @GetMapping("/{usuarioId}")
+    public List<GestaoModel> getGestaoId(@PathVariable String usuarioId){
+
+        return gestaoRepository.findByUsuarioId(usuarioId).stream().map(GestaoModel::from).collect(Collectors.toList());
+
+    }
+
 }
