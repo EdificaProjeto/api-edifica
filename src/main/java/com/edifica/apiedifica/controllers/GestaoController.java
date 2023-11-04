@@ -50,7 +50,7 @@ public class GestaoController {
     }
 
      */
-
+    @GetMapping
     public List<GestaoModel> getGestao(){
         return gestaoRepository.findAll().stream().map(GestaoModel::from).collect(Collectors.toList());
 
@@ -58,7 +58,7 @@ public class GestaoController {
 
 
     @GetMapping("/{usuarioId}")
-    public List<GestaoModel> getGestao(@PathVariable String usuarioId){
+    public List<GestaoModel> getGestaoId(@PathVariable String usuarioId){
         return gestaoRepository.findByUsuarioId(usuarioId).stream().map(GestaoModel::from).collect(Collectors.toList());
 
     }
