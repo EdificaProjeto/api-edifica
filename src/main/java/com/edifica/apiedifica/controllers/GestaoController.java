@@ -1,20 +1,16 @@
 package com.edifica.apiedifica.controllers;
 
 import com.edifica.apiedifica.domain.gestao.Gestao;
-import com.edifica.apiedifica.domain.gestao.GestaoDTO;
 import com.edifica.apiedifica.domain.gestao.GestaoModel;
 import com.edifica.apiedifica.repositories.GestaoRepository;
-import com.edifica.apiedifica.repositories.UsuarioRepository;
 import com.edifica.apiedifica.services.GestaoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -51,8 +47,8 @@ public class GestaoController {
 
      */
     @GetMapping
-    public List<GestaoModel> getGestao(){
-        return gestaoRepository.findAll().stream().map(GestaoModel::from).collect(Collectors.toList());
+    public Map<String, List<GestaoModel>> getGestao(){
+        return gestaoRepository.findAll().stream().map(GestaoModel::from).collect(Collectors.groupingBy(GestaoModel::usuario_id));
 
     }
 
@@ -62,6 +58,8 @@ public class GestaoController {
         return gestaoRepository.findByUsuarioId(usuarioId).stream().map(GestaoModel::from).collect(Collectors.toList());
 
     }
+
+
 
 
 }
