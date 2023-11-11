@@ -39,7 +39,7 @@ public class AutenticacaoController {
         var auth = this.authenticationManager.authenticate(senhaUSuario);
         var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
         Usuario usuario = usuarioRepository.findByEmail(data.email());
-        return ResponseEntity.ok(new LoginResponseDTO(token, usuario.getId()));
+        return ResponseEntity.ok(new LoginResponseDTO(token, usuario.getId(),usuario.getNome()));
 
     }
 
